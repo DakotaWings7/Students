@@ -1,4 +1,4 @@
-package org.students;
+package org.students.homework1;
 
 public class ClassroomDataGroups {
     private MyHashMap<Integer, Person> students = new MyHashMap<>();

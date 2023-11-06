@@ -1,4 +1,4 @@
-package org.students;
+package org.students.homework1;
 
 public class MyHashMap<K, V> {
     private Node<K, V>[] buckets;
@@ -23,22 +23,10 @@ public class MyHashMap<K, V> {
         }
     }
 
-    public void arrayCopy(Person[] newPersons, Person[] persons) {
-        int len;
-        if (newPersons.length < persons.length) {
-            len = newPersons.length;
-        } else {
-            len = persons.length;
-        }
-        for (int i = 0; i < len; i++) {
-            newPersons[i] = persons[i];
-        }
-    }
-
     public Person[] reallocArray(Person[] persons) {
         Person[] newPersons = new Person[(int) (persons.length * 1.5)];
 
-        arrayCopy(newPersons, persons);
+        System.arraycopy(persons, 0, newPersons, 0, persons.length);
 
         return newPersons;
     }
@@ -54,9 +42,8 @@ public class MyHashMap<K, V> {
     public void realloc(int newSize) {
         Node[] newBuckets = new Node[newSize + 1];
 
-        for (int i = 0; i < capacity; ++i) {
-            newBuckets[i] = buckets[i];
-        }
+        System.arraycopy(buckets, 0, newBuckets, 0, capacity);
+
         capacity = newBuckets.length;
         buckets = newBuckets;
     }
@@ -72,14 +59,6 @@ public class MyHashMap<K, V> {
             buckets[index] = new Node(key, value, null);
             buckets[index].tail = buckets[index];
         } else {
-            /* Очень неэффективно
-            Node current = buckets[index];
-
-            while (current.hasNext()) {
-                current = current.next;
-            }
-
-            current.next = new Node<K, V>(key, (V) value, null);*/
             buckets[index].tail.next = new Node<K, V>(key, (V) value, null);
             buckets[index].tail = buckets[index].tail.next;
         }
@@ -99,7 +78,7 @@ public class MyHashMap<K, V> {
             current = current.next;
         }
         Person[] noNullPersons = new Person[i];
-        arrayCopy(noNullPersons, persons);
+        System.arraycopy(persons, 0, noNullPersons, 0, Math.min(noNullPersons.length, persons.length));
 
         return noNullPersons;
     }
@@ -129,6 +108,7 @@ public class MyHashMap<K, V> {
 
         return result.toString();
     }
+
     private int hash(K key) {
         if (key instanceof String) {
             return key.hashCode() - "А".hashCode();

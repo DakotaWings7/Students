@@ -1,4 +1,4 @@
-package org.students;
+package org.students.homework1;
 
 import java.util.Arrays;
 
@@ -16,6 +16,10 @@ public class Person {
 
     public String getSurname() {
         return surname;
+    }
+
+    public String getFirstLetterOfSurname() {
+        return String.valueOf(surname.charAt(0));
     }
 
     public int getAge() {
