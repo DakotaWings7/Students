@@ -1,0 +1,26 @@
+create table students(
+    id serial primary key,
+    last_name varchar(50) not null,
+    first_name varchar(50) not null,
+    age numeric,
+    group_id int
+);
+
+create table subjects (
+    id serial primary key,
+    subject_name varchar(50) not null
+);
+
+create table grades(
+    id serial primary key,
+    student_id integer references students(id),
+    subject_id integer references subjects(id),
+    grade integer
+);
+
+insert into subjects (subject_name) values ('physics');
+insert into subjects (subject_name) values ('mathematics');
+insert into subjects (subject_name) values ('rus');
+insert into subjects (subject_name) values ('literature');
+insert into subjects (subject_name) values ('geometry');
+insert into subjects (subject_name) values ('informatics');
